@@ -31,7 +31,18 @@ require File.expand_path(File.dirname(__FILE__) + '/neo')
 
 def score(dice)
   score = 0
-  dice.map { |num| score += (num == 1 ? 100 : 50) if [1, 5].include? num }
+  scores = Hash.new 0
+
+  dice.map { |num| scores[num] += 1 }
+
+  scores.map do |key, value|
+    triplets = value / 3
+    remainder = value % 3
+
+    score += (100 * remainder) + (1000 * triplets) if key == 1
+    score += (50 * remainder) + (500 * triplets) if key == 5
+    score += (100 * key) if (key != 1 &&  key != 5 && value >= 3)
+  end
   score
 end
 
