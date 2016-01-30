@@ -1,0 +1,15 @@
+p#notice = notice
+
+p
+  strong Name:
+  = @zombie.name
+p
+  strong Bio:
+  = @zombie.bio
+p
+  strong Age:
+  = @zombie.age
+
+= link_to 'Edit', edit_zombie_path(@zombie)
+'|
+= link_to 'Back', zombies_path
