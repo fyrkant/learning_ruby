@@ -1,8 +1,12 @@
-var fs = require('fs');
-var exec = require('child_process').exec;
+const fs = require('fs');
+const exec = require('child_process').exec;
 
-fs.watch('./', (event, filename) => filename !== '.path_progress' &&
-    exec('rake', (error, stdout, stderr) => error === null ?
+const directory = './';
+const re = /\.rb/;
+const command = 'rake';
+
+fs.watch(directory, (event, filename) => filename.match(re) &&
+    exec(command, (error, stdout, stderr) => error === null ?
         console.log(stdout) :
         console.log(`exec error: ${error}`)
         )
